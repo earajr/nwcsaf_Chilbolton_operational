@@ -1,0 +1,1 @@
+cp -r /home/ncas-sat/safnwc/import/NWP_data/* /data/gfs/

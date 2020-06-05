@@ -1,0 +1,22 @@
+#!/bin/bash
+  
+
+target=/data/eumetcast/afr-1/uncompressed/
+archive=/sat_data/archive/
+
+
+#rsync current files from this hour
+hour=`date +%Y%m%d%H`
+previous=`date -d "1 hour ago" +%Y%m%d%H` 
+
+echo $previous
+
+
+##---move old files to the archive directory 
+mkdir -p $archive/$hour
+
+rsync -auxvv /$target/*$hour* $archive/$hour
+
+#catch up on the previous hour
+rsync -auxvv $target/*$previous* $archive/$previous
+

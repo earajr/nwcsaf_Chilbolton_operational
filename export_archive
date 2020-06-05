@@ -1,0 +1,5 @@
+#!/bin/bash
+
+SAFNWC=/home/ncas-sat/safnwc
+
+/usr/bin/rsync -auxvv $SAFNWC/export/* $SAFNWC/export_archive

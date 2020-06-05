@@ -1,0 +1,23 @@
+#!/bin/bash
+
+target=/data/eumetcast/afr-1/uncompressed
+holding=/data/eumetcast/afr-1/default
+
+DATE=$( date -u -d "15 mins ago" "+%Y%m%d%H$( printf "%02d" $(( $( date -u -d '15 minutes ago' +'%M') / 15 * 15 )) )")
+echo ${DATE}
+
+#---copy the data to the import directory for safnwc to process 
+#/usr/bin/rsync -auxvv --progress satuser@10.0.0.63:/cygdrive/c/EUMETCast/received/afr-1/default/*${DATE}* ${holding}
+
+#---uncompress the files and delete the compressed ones after
+cd $holding
+touch uncompress_list.txt
+for fil in $holding/*C_
+do
+   echo "/home/ncas-sat/safnwc/bin/xRITDecompress $fil && rm $fil" >> uncompress_list.txt
+done
+
+/usr/bin/parallel -j 4 < uncompress_list.txt
+rm uncompress_list.txt
+
+mv $holding/* $target/

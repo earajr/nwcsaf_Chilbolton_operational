@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#---Wrapper script to run SAFNWC
+
+export TZ=UTC
+export SAFNWC=/home/ncas-sat/safnwc
+export BUFR_TABLES=$SAFNWC/COTS/bufrtables/
+export CC=gcc
+export FC=gfortran
+export CFLAGS="-O3 <openmp>"
+export FFLAGS="-O3 <openmp>"
+export ARCH=linux
+export HDF5_PLUGIN_PATH=$SAFNWC/COTS/hdf5/lib/plugin/
+export PATH=$SAFNWC/bin:$SAFNWC/COTS/bin:$PATH
+export LD_LIBRARY_PATH=/lib:/lib64:$SAFNWC/COTS/lib:$LD_LIBRARY_PATH
+
+tm status
+
+
